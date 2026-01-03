@@ -1,5 +1,5 @@
-import QtQuick 2.2
-import QtQuick.Controls 1.4
+import QtQuick
+import QtQuick.Controls
 
 ApplicationWindow {
     id: app
@@ -30,8 +30,18 @@ ApplicationWindow {
     }
 
     Button {
+		id: control
         text: qsTr("click bait")
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter / 2
+
+		// background: Rectangle {
+		// 	implicitWidth: 150
+		// 	implicitHeight: 40
+		// 	color: control.hovered ? "#298238" : control.pressed ? "#2c3e50" : "#3498db"
+		// 	radius: 0.2
+		// 	border.color: control.activeFocus ? "#FF0000" : "#ffffff"
+		// 	border.width: 2
+		// }
     }
 }
