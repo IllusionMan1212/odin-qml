@@ -8,11 +8,25 @@ ApplicationWindow {
     color: "lightgray"
     Component.onCompleted: visible = true
 
+	FontLoader {
+		id: redHatDisplay
+		source: "./fonts/RedHatDisplay.ttf"
+	}
+
+	font.family: redHatDisplay.name
+	// font.pointSize: 24
+
+	TextArea {
+		text: "Hello world!\n Qml on Odin"
+		readOnly: true
+		selectByMouse: true
+		font.pointSize: 16
+	}
     Text {
         text: "Hello world!\n Qml on Odin"
         y: 30
         anchors.horizontalCenter: app.contentItem.horizontalCenter
-        font.pointSize: 24; font.bold: true
+        font.pointSize: 24;
     }
 
     menuBar: MenuBar {
