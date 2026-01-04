@@ -4,6 +4,8 @@ USE_QT5 :: #config(USE_QT5, false)
 
 when ODIN_OS == .Linux {
 foreign import qt_qml {
+	// Qt5: Built against 5.15.13.
+	// Qt6: Built against 6.9.1
 	"libs/libDOtherSideStatic-qt5.a" when USE_QT5 else "libs/libDOtherSideStatic-qt6.a",
 	"system:Qt5Core" when USE_QT5 else "system:Qt6Core",
 	"system:stdc++",
@@ -27,6 +29,7 @@ QEventLoopProcessEventFlag :: enum i32 {
 
 QQmlApplicationEngine :: struct{}
 QUrl :: struct{}
+QVariant :: struct{}
 QQmlContext :: struct{}
 QQuickImageProvider :: struct{}
 
@@ -110,4 +113,19 @@ foreign qt_qml {
 	/// \brief Free the memory allocated for the given QQmlApplicationEngine
 	/// \param vptr The QQmlApplicationEngine
 	qqmlapplicationengine_delete :: proc(vptr: ^QQmlApplicationEngine) ---
+
+	/// \defgroup QQmlContext QQmlContext
+	/// \brief Functions related to the QQmlContext class
+	/// @{
+
+	/// \brief Calls the QQmlContext::baseUrl function
+	/// \return The QQmlContext url as an UTF-8 string
+	/// \note The returned string should be freed using with the dos_chararray_delete() function
+	qqmlcontext_baseUrl :: proc(vptr: ^QQmlContext) -> cstring ---
+
+	/// \brief Sets a property inside the context
+	/// \param vptr The DosQQmlContext
+	/// \param name The property name. The string is owned by the caller thus it will not be deleted by the library
+	/// \param value The property value. The DosQVariant is owned by the caller thus it will not be deleted by the library
+	qqmlcontext_setcontextproperty :: proc(vptr: ^QQmlContext, name: cstring, value: ^QVariant) ---
 }
