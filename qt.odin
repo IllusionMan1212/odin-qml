@@ -667,70 +667,66 @@ foreign qt_qml {
 	/// \param vptr The QObject
 	/// \param name A pointer to an UTF-8 string
 	/// \note The \p name string is owned by the caller thus it will not be deleted
-	void qobject_setObjectName :: proc(DosQObject *vptr, const char *name)
+	qobject_setObjectName :: proc(vptr: ^QObject, name: cstring) ---
 
 	/// \brief Free the memory allocated for the QObject
 	/// \param vptr The QObject
-	void qobject_delete :: proc(DosQObject *vptr)
+	qobject_delete :: proc(vptr: ^QObject) ---
 
 	/// \brief Free the memory allocated for the QObject in the next event loop cycle
 	/// \param vptr The QObject
-	void qobject_deleteLater :: proc(DosQObject *vptr)
+	qobject_deleteLater :: proc(vptr: ^QObject) ---
 
 	/// \brief Read Value of a property by its name
 	/// \param vptr The QObject
 	/// \param propertyName the Name of the property to be read
 	/// \returns Value of the given property
 	/// \note returns an empty QVariant if the propertyName does not exist
-	DosQVariant *qobject_property :: proc(DosQObject *vptr,
-													   const char *propertyName)
+	qobject_property :: proc(vptr: ^QObject, propertyName: cstring) -> ^QVariant ---
 
 	/// \brief Write Value to a property by its name
 	/// \param vptr The QObject
 	/// \param propertyName The Name of the property to be written
 	/// \param value The value to be written
 	/// \return Result as bool
-	bool qobject_setProperty :: proc(DosQObject *vptr,
-												  const char *propertyName,
-												  DosQVariant *value)
+	qobject_setProperty :: proc(vptr: ^QObject, propertyName: cstring, value: ^QVariant) -> b32 ---
 
 	/// \brief Return the equivalent of SLOT(str) macro invokation
 	/// \note The returned string should be free with dos_chararray_delete
-	char* slot_macro :: proc(const char* str)
+	slot_macro :: proc(str: cstring) -> cstring ---
 
 	/// \brief Return the equivalent of SIGNAL(str) macro invokation
 	/// \note The returned string should be freed by calling the dos_chararray_delete() function
-	char* signal_macro :: proc(const char* str)
+	signal_macro :: proc(str: cstring) -> cstring ---
 
 	/// \brief Connect an object signal to a lambda/callback
-	DosQMetaObjectConnection* qobject_connect_lambda_static :: proc(DosQObject *sender, const char *signal,
-																				 DosQObjectConnectLambdaCallback callback, void* callbackData,
-																				 DosQtConnectionType connection_type)
+	qobject_connect_lambda_static :: proc(sender: ^QObject, signal: cstring,
+											 callback: QObjectConnectLambdaCallback, callbackData: rawptr,
+											 connection_type: QtConnectionType) -> ^QMetaObjectConnection ---
 
 	/// \brief Connect an object signal to a lambda/callback
-	DosQMetaObjectConnection* qobject_connect_lambda_with_context_static :: proc(DosQObject *sender, const char *signal, DosQObject *context,
-																							  DosQObjectConnectLambdaCallback callback, void* callbackData,
-																							  DosQtConnectionType connection_type)
+	qobject_connect_lambda_with_context_static :: proc(sender: ^QObject, signal: cstring, ctx: ^QObject,
+														  callback: QObjectConnectLambdaCallback, callbackData: rawptr,
+														  connection_type: QtConnectionType) -> ^QMetaObjectConnection ---
 
 	/// \brief Connect an object signal to another object signal or slot
 	/// \note Use the dos_signal_macro o dos_slot_macro for property format the string arguments
-	DosQMetaObjectConnection* qobject_connect_static :: proc(DosQObject *sender, const char *signal,
-																		  DosQObject *receiver, const char *slot,
-																		  DosQtConnectionType connection_type)
+	qobject_connect_static :: proc(sender: ^QObject, signal: cstring,
+									  receiver: ^QObject, slot: cstring,
+									  connection_type: QtConnectionType) -> ^QMetaObjectConnection ---
 
 	/// \brief Disconnect an object slot or signal from an object signal
 	/// \note Use the dos_signal_macro o dos_slot_macro for property format the string arguments
-	qobject_disconnect_static :: proc(DosQObject *sender, const char *signal,
-														DosQObject *receiver, const char *slot) ---
+	qobject_disconnect_static :: proc(sender: ^QObject, signal: cstring, receiver: ^QObject, slot: cstring) ---
 
 	/// \brief Disconnect through a DosQMetaObjectConnection
-	qobject_disconnect_with_connection_static :: proc(DosQMetaObjectConnection* connection) ---
+	qobject_disconnect_with_connection_static :: proc(connection: ^QMetaObjectConnection) ---
 
 	/// \defgroup QMetaObject::Connection QMetaObject::Connection
 	/// \brief Functions related to the QMetaObject::Connection class
 	/// @{
 
-	void dos_qmetaobject_connection_delete(DosQMetaObjectConnection* self)
+	qmetaobject_connection_delete :: proc(self: ^QMetaObjectConnection) ---
 
 	/// @}
 
@@ -740,43 +736,43 @@ foreign qt_qml {
 
 	/// \brief Create a new QModelIndex()
 	/// \note The returned QModelIndex should be freed by calling the dos_qmodelindex_delete() function
-	DosQModelIndex *dos_qmodelindex_create(void)
+	qmodelindex_create :: proc() -> ^QModelIndex ---
 
 	/// \brief Create a new QModelIndex() copy constructed with given index
 	/// \note The returned QModelIndex should be freed by calling the dos_qmodelindex_delete() function
-	DosQModelIndex *dos_qmodelindex_create_qmodelindex(DosQModelIndex *index)
+	qmodelindex_create_qmodelindex :: proc(index: ^QModelIndex) -> ^QModelIndex ---
 
 	/// \brief Free the memory allocated for the QModelIndex
 	/// \param vptr The QModelIndex
-	void dos_qmodelindex_delete (DosQModelIndex *vptr)
+	qmodelindex_delete :: proc(vptr: ^QModelIndex) ---
 
 	/// \brief Calls the QModelIndex::row() function
 	/// \param vptr The QModelIndex
 	/// \return The QModelIndex row
-	int  dos_qmodelindex_row    (const DosQModelIndex *vptr)
+	qmodelindex_row :: proc(vptr: ^QModelIndex) -> i32 ---
 
 	/// \brief Calls the QModelIndex::column() function
 	/// \param vptr The QModelIndex
 	/// \return The QModelIndex column
-	int  dos_qmodelindex_column (const DosQModelIndex *vptr)
+	qmodelindex_column :: proc(vptr: ^QModelIndex) -> i32 ---
 
 	/// \brief Calls the QModelIndex::isvalid() function
 	/// \param vptr The QModelIndex
 	/// \return True if the QModelIndex is valid, false otherwise
-	bool dos_qmodelindex_isValid(const DosQModelIndex *vptr)
+	qmodelindex_isValid :: proc(vptr: ^QModelIndex) -> b32 ---
 
 	/// \brief Calls the QModelIndex::data() function
 	/// \param vptr The QModelIndex
 	/// \param role The model role to which we want the data
 	/// \return The QVariant associated at the given role
 	/// \note The returned QVariant should be freed by calling the dos_qvariant_delete() function
-	DosQVariant *dos_qmodelindex_data (const DosQModelIndex *vptr, int role)
+	qmodelindex_data :: proc(vptr: ^QModelIndex, role: i32) -> ^QVariant ---
 
 	/// \brief Calls the QModelIndex::parent() function
 	/// \param vptr The QModelIndex
 	/// \return The model parent QModelIndex
 	/// \note The returned QModelIndex should be freed by calling the dos_qmodelindex_delete() function
-	DosQModelIndex *dos_qmodelindex_parent (const DosQModelIndex *vptr)
+	qmodelindex_parent :: proc(vptr: ^QModelIndex) -> ^QModelIndex ---
 
 	/// \brief Calls the QModelIndex::child() function
 	/// \param vptr The QModelIndex
@@ -784,7 +780,7 @@ foreign qt_qml {
 	/// \param column The child column
 	/// \return The model child QModelIndex at the given \p row and \p column
 	/// \note The returned QModelIndex should be freed by calling the dos_qmodelindex_delete() function
-	DosQModelIndex *dos_qmodelindex_child  (const DosQModelIndex *vptr, int row, int column)
+	qmodelindex_child :: proc(vptr: ^QModelIndex, row: i32, column: i32) -> ^QModelIndex ---
 
 	/// \brief Calls the QModelIndex::sibling() function
 	/// \param vptr The QModelIndex
@@ -792,17 +788,17 @@ foreign qt_qml {
 	/// \param column The sibling column
 	/// \return The model sibling QModelIndex at the given \p row and \p column
 	/// \note The returned QModelIndex should be freed by calling the dos_qmodelindex_delete() function
-	DosQModelIndex *dos_qmodelindex_sibling(const DosQModelIndex *vptr, int row, int column)
+	qmodelindex_sibling :: proc(vptr: ^QModelIndex, row: i32, column: i32) -> ^QModelIndex ---
 
 	/// \brief Calls the QModelIndex::operator=(const QModelIndex&) function
 	/// \param l The left side QModelIndex
 	/// \param r The right side QModelIndex
-	void dos_qmodelindex_assign(DosQModelIndex *l, const DosQModelIndex *r)
+	qmodelindex_assign :: proc(l: ^QModelIndex, r: ^QModelIndex) ---
 
 	/// \brief Calls the QModelIndex::internalPointer function
 	/// \param vptr The QModelIndex
 	/// \return The internal pointer
-	void* dos_qmodelindex_internalPointer(DosQModelIndex *vptr)
+	qmodelindex_internalPointer :: proc(vptr: ^QModelIndex) -> rawptr ---
 
 
 	/// @}
@@ -815,25 +811,25 @@ foreign qt_qml {
 	/// \return A new QHash<int, QByteArray>
 	/// \note The retuned QHash<int, QByteArray> should be freed using
 	/// the dos_qhash_int_qbytearray_delete(DosQHashIntQByteArray *) function
-	DosQHashIntQByteArray *dos_qhash_int_qbytearray_create(void)
+	qhash_int_qbytearray_create :: proc() -> ^QHashIntQByteArray ---
 
 	/// \brief Free the memory allocated for the QHash<int, QByteArray>
 	/// \param vptr The QHash<int, QByteArray>
-	void  dos_qhash_int_qbytearray_delete(DosQHashIntQByteArray *vptr)
+	qhash_int_qbytearray_delete :: proc(vptr: ^QHashIntQByteArray) ---
 
 	/// \brief Calls the QHash<int, QByteArray>::insert() function
 	/// \param vptr The QHash<int, QByteArray>
 	/// \param key The key
 	/// \param value The UTF-8 string
 	/// \note The \p value string is owned by the caller thus it will not be freed
-	void  dos_qhash_int_qbytearray_insert(DosQHashIntQByteArray *vptr, int key, const char *value)
+	qhash_int_qbytearray_insert :: proc(vptr: ^QHashIntQByteArray, key: i32, value: cstring) ---
 
 	/// \brief Calls the QHash<int, QByteArray>::value() function
 	/// \param vptr The QHash<int, QByteArray>
 	/// \param key The key to which retrive the value
 	/// \return The UTF-8 string associated to the given value
 	/// \note The returned string should be freed by calling the dos_chararray_delete() function
-	char *dos_qhash_int_qbytearray_value(const DosQHashIntQByteArray *vptr, int key)
+	qhash_int_qbytearray_value :: proc(vptr: ^QHashIntQByteArray, key: i32) -> cstring ---
 
 	/// @}
 
@@ -842,7 +838,7 @@ foreign qt_qml {
 	/// @{
 
 	/// Register the given .rcc (compiled) file in the resource system
-	void dos_qresource_register(const char *filename)
+	qresource_register :: proc(filename: cstring) ---
 
 	/// @}
 
@@ -854,22 +850,22 @@ foreign qt_qml {
 	/// \param url The UTF-8 string that represents an url
 	/// \param parsingMode The parsing mode
 	/// \note The retuned QUrl should be freed using the dos_qurl_delete() function
-	DosQUrl *dos_qurl_create(const char *url, int parsingMode)
+	qurl_create :: proc(url: cstring, parsingMode: i32) -> ^QUrl ---
 
 	/// \brief Free the memory allocated for the QUrl
 	/// \param vptr The QUrl to be freed
-	void dos_qurl_delete(DosQUrl *vptr)
+	qurl_delete :: proc(vptr: ^QUrl) ---
 
 	/// \brief Calls the QUrl::toString() function
 	/// \param vptr The QUrl
 	/// \return The url as an UTF-8 string
 	/// \note The returned string should be freed using the dos_chararray_delete() function
-	char *dos_qurl_to_string(const DosQUrl *vptr)
+	qurl_to_string :: proc(vptr: ^QUrl) -> cstring ---
 
 	/// \brief Class the QUrl::isValid() function
 	/// \param vptr The QUrl
 	/// \return True if the QUrl is valid, false otherwise
-	bool dos_qurl_isValid(const DosQUrl *vptr)
+	qurl_isValid :: proc(vptr: ^QUrl) -> b32 ---
 
 	/// @}
 
@@ -881,12 +877,12 @@ foreign qt_qml {
 	/// \return An integer value that represents the registration ID in the
 	/// qml environment
 	/// \note The \p qmlRegisterType is owned by the caller thus it will not be freed
-	int dos_qdeclarative_qmlregistertype(const QmlRegisterType *qmlRegisterType)
+	qdeclarative_qmlregistertype :: proc(qmlRegisterType: ^QmlRegisterType) -> i32 ---
 
 	/// \brief Register a singleton type in order to be accessible from QML
 	/// \return An integer value that represents the registration ID in the
 	/// \note The \p qmlRegisterType is owned by the caller thus it will not be freed
-	int dos_qdeclarative_qmlregistersingletontype(const QmlRegisterType *qmlRegisterType)
+	qdeclarative_qmlregistersingletontype :: proc(qmlRegisterType: ^QmlRegisterType) -> i32 ---
 
 	/// @}
 
@@ -895,20 +891,20 @@ foreign qt_qml {
 	/// @{
 
 	/// \brief Create a new QPointer with the given DosQObject
-	DosQPointer* dos_qpointer_create(DosQObject* object)
+	qpointer_create :: proc(object: ^QObject) -> ^QPointer ---
 
 	/// \brief Free the memory allocated for the given QPointer
-	void dos_qpointer_delete(DosQPointer* self)
+	qpointer_delete :: proc(self: ^QPointer) ---
 
 	/// \brief Test the QPointer for nullness
-	bool dos_qpointer_is_null(DosQPointer* self)
+	qpointer_is_null :: proc(self: ^QPointer) -> b32 ---
 
 	/// \brief Clear the QPointer
-	void dos_qpointer_clear(DosQPointer* self)
+	qpointer_clear :: proc(self: ^QPointer) ---
 
 	/// \brief Return a pointer to the tracked DosQObject
 	/// \note The return DosQObject is a reference and should not be fred unless you know what you're doing
-	DosQObject* dos_qpointer_data(DosQPointer* self)
+	qpointer_data :: proc(self: ^QPointer) -> ^QObject ---
 
 	/// @}
 
