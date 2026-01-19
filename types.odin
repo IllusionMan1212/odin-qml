@@ -66,7 +66,7 @@ ColumnCountCallback :: #type proc "c" (self: rawptr, parent: ^QModelIndex, resul
 DataCallback :: #type proc "c" (self: rawptr, index: ^QModelIndex, role: i32, result: ^QVariant)
 
 /// Called when the QAbstractItemModel::setData method must be executed
-SetDataCallback :: #type proc "c" (self: rawptr, index: ^QModelIndex, value: ^QVariant, role: i32, result: ^b32)
+SetDataCallback :: #type proc "c" (self: rawptr, index: ^QModelIndex, value: ^QVariant, role: i32, result: ^bool)
 
 /// Called when the QAbstractItemModel::roleNames method must be executed
 RoleNamesCallback :: #type proc "c" (self: rawptr, result: ^QHashIntQByteArray)
@@ -84,10 +84,10 @@ IndexCallback :: #type proc "c" (self: rawptr, row: i32, column: i32, parent: ^Q
 ParentCallback :: #type proc "c" (self: rawptr, child: ^QModelIndex, result: ^QModelIndex)
 
 /// Called when the QAbstractItemModel::hasChildren method must be called
-HasChildrenCallback :: #type proc "c" (self: rawptr, parent: ^QModelIndex, result: ^b32)
+HasChildrenCallback :: #type proc "c" (self: rawptr, parent: ^QModelIndex, result: ^bool)
 
 /// Called when the QAbstractItemModel::canFetchMore method must be called
-CanFetchMoreCallback :: #type proc "c" (self: rawptr, parent: ^QModelIndex, result: ^b32)
+CanFetchMoreCallback :: #type proc "c" (self: rawptr, parent: ^QModelIndex, result: ^bool)
 
 /// Called when the QAbstractItemModel::fetchMore method must be called
 FetchMoreCallback :: #type proc "c" (self: rawptr, parent: ^QModelIndex)
