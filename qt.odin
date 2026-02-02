@@ -146,7 +146,7 @@ foreign qt_qml {
 	qpixmap_assign :: proc(vptr: ^QPixmap, other: ^QPixmap) ---
 	/// \brief Calls the QPixmap::isNull
 	/// \return True if the QPixmap is null, false otherwise
-	qpixmap_isNull :: proc(vptr: ^QPixmap) -> b32 ---
+	qpixmap_isNull :: proc(vptr: ^QPixmap) -> bool ---
 	/// @}
 
 
@@ -267,7 +267,7 @@ foreign qt_qml {
 	/// \return The a new QVariant
 	/// \param value The bool value
 	/// \note The returned QVariant should be freed using dos_qvariant_delete()
-	qvariant_create_bool :: proc(value: b32) -> ^QVariant ---
+	qvariant_create_bool :: proc(value: bool) -> ^QVariant ---
 
 	/// \brief Create a new QVariant holding a string value
 	/// \return The a new QVariant
@@ -325,7 +325,7 @@ foreign qt_qml {
 	/// \brief Calls the QVariant::setValue<bool>() function
 	/// \param vptr The QVariant
 	/// \param value The bool value
-	qvariant_setBool :: proc(vptr: ^QVariant, value: b32) ---
+	qvariant_setBool :: proc(vptr: ^QVariant, value: bool) ---
 
 	/// \brief Calls the QVariant::setValue<float>() function
 	/// \param vptr The QVariant
@@ -358,7 +358,7 @@ foreign qt_qml {
 	/// \brief Calls the QVariant::isNull function
 	/// \return True if the QVariant is null, false otherwise
 	/// \param vptr The QVariant
-	qvariant_isnull :: proc(vptr: ^QVariant) -> b32 ---
+	qvariant_isnull :: proc(vptr: ^QVariant) -> bool ---
 
 	/// \brief Free the memory allocated for the given QVariant
 	/// \param vptr The QVariant
@@ -387,7 +387,7 @@ foreign qt_qml {
 	/// \brief Calls the QVariant::value<bool>() function
 	/// \param vptr The QVariant
 	/// \return The bool value
-	qvariant_toBool :: proc(vptr: ^QVariant) -> b32 ---
+	qvariant_toBool :: proc(vptr: ^QVariant) -> bool ---
 
 	/// \brief Calls the QVariant::value<QString>() function
 	/// \param vptr The QVariant
@@ -446,7 +446,7 @@ foreign qt_qml {
 	qmetaobject_invoke_method :: proc(ctx: ^QObject,
 										callback: QMetaObjectInvokeMethodCallback ,
 										callbackData: rawptr,
-										connection_type: QtConnectionType) -> b32 ---
+										connection_type: QtConnectionType) -> bool ---
 
 
 
@@ -533,7 +533,7 @@ foreign qt_qml {
 									  callbacks: ^QAbstractItemModelCallbacks) -> ^QAbstractItemModel ---
 
 	/// \brief Calls the QAbstractItemModel::setData function
-	qabstractitemmodel_setData :: proc(vptr: ^QAbstractItemModel, index: ^QModelIndex, data: ^QVariant, role: i32) -> b32 ---
+	qabstractitemmodel_setData :: proc(vptr: ^QAbstractItemModel, index: ^QModelIndex, data: ^QVariant, role: i32) -> bool ---
 
 	/// \brief Calls the QAbstractItemModel::roleNames function
 	qabstractitemmodel_roleNames :: proc(vptr: ^QAbstractItemModel) -> ^QHashIntQByteArray ---
@@ -545,13 +545,13 @@ foreign qt_qml {
 	qabstractitemmodel_headerData :: proc(vptr: ^QAbstractItemModel, section: i32, orientation: i32, role: i32) -> ^QVariant ---
 
 	/// \brief Calls the QAbstractItemModel::hasChildren function
-	qabstractitemmodel_hasChildren :: proc(vptr: ^QAbstractItemModel, parentIndex: ^QModelIndex) -> b32 ---
+	qabstractitemmodel_hasChildren :: proc(vptr: ^QAbstractItemModel, parentIndex: ^QModelIndex) -> bool ---
 
 	/// \brief Calls the QAbstractItemModel::hasIndex function
-	qabstractitemmodel_hasIndex :: proc(vptr: ^QAbstractItemModel, row: i32, column: i32, dosParentIndex: ^QModelIndex) -> b32 ---
+	qabstractitemmodel_hasIndex :: proc(vptr: ^QAbstractItemModel, row: i32, column: i32, dosParentIndex: ^QModelIndex) -> bool ---
 
 	/// \brief Calls the QAbstractItemModel::canFetchMore function
-	qabstractitemmodel_canFetchMore :: proc(vptr: ^QAbstractItemModel, parentIndex: ^QModelIndex) -> b32 ---
+	qabstractitemmodel_canFetchMore :: proc(vptr: ^QAbstractItemModel, parentIndex: ^QModelIndex) -> bool ---
 
 	/// \brief Calls the QAbstractItemModel::fetchMore function
 	qabstractitemmodel_fetchMore :: proc(vptr: ^QAbstractItemModel, parentIndex: ^QModelIndex) ---
@@ -689,7 +689,7 @@ foreign qt_qml {
 	/// \param propertyName The Name of the property to be written
 	/// \param value The value to be written
 	/// \return Result as bool
-	qobject_setProperty :: proc(vptr: ^QObject, propertyName: cstring, value: ^QVariant) -> b32 ---
+	qobject_setProperty :: proc(vptr: ^QObject, propertyName: cstring, value: ^QVariant) -> bool ---
 
 	/// \brief Return the equivalent of SLOT(str) macro invokation
 	/// \note The returned string should be free with dos_chararray_delete
@@ -759,7 +759,7 @@ foreign qt_qml {
 	/// \brief Calls the QModelIndex::isvalid() function
 	/// \param vptr The QModelIndex
 	/// \return True if the QModelIndex is valid, false otherwise
-	qmodelindex_isValid :: proc(vptr: ^QModelIndex) -> b32 ---
+	qmodelindex_isValid :: proc(vptr: ^QModelIndex) -> bool ---
 
 	/// \brief Calls the QModelIndex::data() function
 	/// \param vptr The QModelIndex
@@ -865,7 +865,7 @@ foreign qt_qml {
 	/// \brief Class the QUrl::isValid() function
 	/// \param vptr The QUrl
 	/// \return True if the QUrl is valid, false otherwise
-	qurl_isValid :: proc(vptr: ^QUrl) -> b32 ---
+	qurl_isValid :: proc(vptr: ^QUrl) -> bool ---
 
 	/// @}
 
@@ -897,7 +897,7 @@ foreign qt_qml {
 	qpointer_delete :: proc(self: ^QPointer) ---
 
 	/// \brief Test the QPointer for nullness
-	qpointer_is_null :: proc(self: ^QPointer) -> b32 ---
+	qpointer_is_null :: proc(self: ^QPointer) -> bool ---
 
 	/// \brief Clear the QPointer
 	qpointer_clear :: proc(self: ^QPointer) ---
