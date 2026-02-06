@@ -324,3 +324,17 @@ QMetaType :: enum i32 {
     Void = 43
 }
 
+QItemFlag :: enum i32 {
+	IsSelectable = 0,
+	IsEditable,
+	IsDragEnabled,
+	IsDropEnabled,
+	IsUserCheckable,
+	IsEnabled,
+	IsAutoTristate,
+	NeverHasChildren,
+	IsUserTristate,
+}
+
+QItemFlags :: bit_set[QItemFlag; i32]
+
