@@ -321,6 +321,7 @@ QMetaType :: enum i32 {
     Float = 38,
     QObject = 39,
     QVariant = 41,
+    QModelIndex = 42,
     Void = 43
 }
 
