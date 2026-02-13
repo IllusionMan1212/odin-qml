@@ -2,20 +2,35 @@ package qt
 
 USE_QT5 :: #config(USE_QT5, false)
 
+// All libraries are assumed to be x64 unless explicitly stated otherwise.
+
 when ODIN_OS == .Linux {
 foreign import qt_qml {
 	// Qt5: Built against 5.15.13.
 	// Qt6: Built against 6.9.1
-	"libs/libDOtherSideStatic-qt5.a" when USE_QT5 else "libs/libDOtherSideStatic-qt6.a",
-	"system:Qt5Core" when USE_QT5 else "system:Qt6Core",
+	"libs/linux/libDOtherSideStatic-qt5.a" when USE_QT5 else "libs/linux/libDOtherSideStatic-qt6.a",
 	"system:stdc++",
+	"system:Qt5Core" when USE_QT5 else "system:Qt6Core",
 	"system:Qt5Qml" when USE_QT5 else "system:Qt6Qml",
 	"system:Qt5Quick" when USE_QT5 else "system:Qt6Quick",
 	"system:Qt5Gui" when USE_QT5 else "system:Qt6Gui",
 	"system:Qt5Widgets" when USE_QT5 else "system:Qt5Widgets",
 }
 } else when ODIN_OS == .Windows {
-	// TODO:
+//@(extra_linker_flags="/NODEFAULTLIB:libucrt")
+foreign import qt_qml {
+	// Qt5: ???
+	// Qt6: Built against 6.10.2
+	"libs/windows/DOtherSideStatic-qt5.lib" when USE_QT5 else "libs/windows/DOtherSideStatic-qt6.lib",
+	// NOTE: These libraries are only stubs to be able to compile. The actual shared libraries (dlls)
+	// must be copied next to the executable before distribution
+	//"system:ucrt.lib",
+	"libs/windows/Qt5Core.dll.lib" when USE_QT5 else "libs/windows/Qt6Core.dll.lib",
+	"libs/windows/Qt5Qml.dll.lib" when USE_QT5 else "libs/windows/Qt6Qml.dll.lib",
+	"libs/windows/Qt5Quick.dll.lib" when USE_QT5 else "libs/windows/Qt6Quick.dll.lib",
+	"libs/windows/Qt5Gui.dll.lib" when USE_QT5 else "libs/windows/Qt6Gui.dll.lib",
+	"libs/windows/Qt5Widgets.dll.lib" when USE_QT5 else "libs/windows/Qt6Widgets.dll.lib",
+}
 } else when ODIN_OS == .Darwin {
 	// TODO:
 }
@@ -34,7 +49,7 @@ foreign qt_qml {
 	qcoreapplication_process_events_timed :: proc(flags: QEventLoopProcessEventFlag, ms: i32) ---
 	/// \brief Create a QGuiApplication
 	/// \note The created QGuiApplication should be freed by calling dos_qguiapplication_delete()
-	qguiapplication_create :: proc() ---
+	qguiapplication_create :: proc(argc: i32, argv: [^]cstring) ---
 	/// \brief Calls the QGuiApplication::exec() function of the current QGuiApplication
 	/// \note A QGuiApplication should have been already created through dos_qguiapplication_create()
 	qguiapplication_exec :: proc() ---
