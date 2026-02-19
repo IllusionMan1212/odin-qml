@@ -50,6 +50,10 @@ foreign qt_qml {
 	/// \brief Create a QGuiApplication
 	/// \note The created QGuiApplication should be freed by calling dos_qguiapplication_delete()
 	qguiapplication_create :: proc(argc: i32, argv: [^]cstring, debuggingEnabled: bool) ---
+
+	qguiapplication_set_organization_name :: proc(name: cstring) ---
+	qguiapplication_set_organization_domain :: proc(domain: cstring) ---
+
 	/// \brief Calls the QGuiApplication::exec() function of the current QGuiApplication
 	/// \note A QGuiApplication should have been already created through dos_qguiapplication_create()
 	qguiapplication_exec :: proc() ---
