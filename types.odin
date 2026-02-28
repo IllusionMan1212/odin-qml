@@ -286,6 +286,12 @@ QtConnectionType :: enum {
     UniqueConnection = 0x80
 }
 
+QUrlParsingMode :: enum i32 {
+	Tolerant,
+	Strict,
+	Decoded
+}
+
 /*
   enum Type {
   UnknownType = 0, Bool = 1, Int = 2, UInt = 3, LongLong = 4, ULongLong = 5,

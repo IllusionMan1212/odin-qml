@@ -7,14 +7,14 @@ USE_QT5 :: #config(USE_QT5, false)
 when ODIN_OS == .Linux {
 foreign import qt_qml {
 	// Qt5: Built against 5.15.13.
-	// Qt6: Built against 6.9.1
+	// Qt6: Built against 6.10.2
 	"libs/linux/libDOtherSideStatic-qt5.a" when USE_QT5 else "libs/linux/libDOtherSideStatic-qt6.a",
 	"system:stdc++",
 	"system:Qt5Core" when USE_QT5 else "system:Qt6Core",
 	"system:Qt5Qml" when USE_QT5 else "system:Qt6Qml",
 	"system:Qt5Quick" when USE_QT5 else "system:Qt6Quick",
 	"system:Qt5Gui" when USE_QT5 else "system:Qt6Gui",
-	"system:Qt5Widgets" when USE_QT5 else "system:Qt5Widgets",
+	"system:Qt5Widgets" when USE_QT5 else "system:Qt6Widgets",
 }
 } else when ODIN_OS == .Windows {
 //@(extra_linker_flags="/NODEFAULTLIB:libucrt")
@@ -53,6 +53,9 @@ foreign qt_qml {
 
 	qguiapplication_set_organization_name :: proc(name: cstring) ---
 	qguiapplication_set_organization_domain :: proc(domain: cstring) ---
+
+	qguiapplication_set_application_name :: proc(name: cstring) ---
+	qguiapplication_set_application_version :: proc(version: cstring) ---
 
 	/// \brief Calls the QGuiApplication::exec() function of the current QGuiApplication
 	/// \note A QGuiApplication should have been already created through dos_qguiapplication_create()
@@ -869,7 +872,7 @@ foreign qt_qml {
 	/// \param url The UTF-8 string that represents an url
 	/// \param parsingMode The parsing mode
 	/// \note The retuned QUrl should be freed using the dos_qurl_delete() function
-	qurl_create :: proc(url: cstring, parsingMode: i32) -> ^QUrl ---
+	qurl_create :: proc(url: cstring, parsingMode: QUrlParsingMode) -> ^QUrl ---
 
 	/// \brief Free the memory allocated for the QUrl
 	/// \param vptr The QUrl to be freed
