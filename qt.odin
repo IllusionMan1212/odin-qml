@@ -57,6 +57,8 @@ foreign qt_qml {
 	qguiapplication_set_application_name :: proc(name: cstring) ---
 	qguiapplication_set_application_version :: proc(version: cstring) ---
 
+	qguiapplication_set_window_icon :: proc(iconPath: cstring) ---
+
 	/// \brief Calls the QGuiApplication::exec() function of the current QGuiApplication
 	/// \note A QGuiApplication should have been already created through dos_qguiapplication_create()
 	qguiapplication_exec :: proc() ---
