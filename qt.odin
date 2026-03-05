@@ -32,7 +32,20 @@ foreign import qt_qml {
 	"libs/windows/Qt5Widgets.dll.lib" when USE_QT5 else "libs/windows/Qt6Widgets.dll.lib",
 }
 } else when ODIN_OS == .Darwin {
-	// TODO:
+when ODIN_ARCH == .amd64 {
+foreign import qt_qml {
+	// Qt5: ???
+	// Qt6: Built against 6.10.2
+	"libs/macos/libDOtherSideStatic-qt5-x86_64.a" when USE_QT5 else "libs/macos/libDOtherSideStatic-qt6-x86_64.a",
+	"system:QtCore.framework",
+	"system:QtQml.framework",
+	"system:QtQuick.framework",
+	"system:QtGui.framework",
+	"system:QtWidgets.framework",
+}
+} else when ODIN_ARCH == .arm64 {
+	#panic("Qt libraries for macOS arm64 are not available yet")
+}
 }
 
 
